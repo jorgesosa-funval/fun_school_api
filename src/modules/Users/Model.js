@@ -6,17 +6,25 @@ export class Users extends Model { }
 Users.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
         },
-        name: {
+        firstname: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        middlename: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         lastname: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        secondlastname: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         email: {
             type: DataTypes.STRING,
@@ -26,9 +34,24 @@ Users.init(
                 isEmail: true,
             },
         },
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {
+                isNumeric: true,
+            },
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        emergency_phone: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         status: {
             type: DataTypes.BOOLEAN,
@@ -37,7 +60,15 @@ Users.init(
                 const value = this.getDataValue("status");
                 return value ? 'active' : 'inactive';
             }
-        }
+        },
+        role_id: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            references: {
+                model: "roles",
+                key: "id",
+            },
+        },
     },
     {
         sequelize,
@@ -47,3 +78,6 @@ Users.init(
         updatedAt: "updated_at",
     }
 );
+
+// Associations 
+Users.belongsTo('Roles', { foreignKey: "role_id", as: "role" });
