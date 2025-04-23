@@ -6,7 +6,7 @@ export class Teachers extends Model { }
 Teachers.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
         },
@@ -19,7 +19,7 @@ Teachers.init(
             allowNull: false,
         },
         user_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
             references: {
                 model: "users",
@@ -37,4 +37,4 @@ Teachers.init(
 );
 
 //association
-Teachers.belongsTo('User', { foreignKey: 'user_id', as: 'user' });
+// Teachers.belongsTo('Users', { foreignKey: 'user_id', as: 'user' });

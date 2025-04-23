@@ -6,7 +6,7 @@ export class Payments extends Model {}
 Payments.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
         },
@@ -19,7 +19,7 @@ Payments.init(
             allowNull: true,
         },
         student_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.BIGINT,
             allowNull: false,
             references: {
                 model: "students",
@@ -38,7 +38,7 @@ Payments.init(
 
 
 // Define associations
-Payments.belongsTo("students", {
-    foreignKey: "student_id",
-    as: "student",
-});
+// Payments.belongsTo("students", {
+//     foreignKey: "student_id",
+//     as: "student",
+// });

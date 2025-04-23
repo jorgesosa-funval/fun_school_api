@@ -1,38 +1,38 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
 
-export class Students extends Model {}
+export class Parents_Students extends Model {}
 
-Students.init(
+Parents_Students.init(
     {
         id: {
             type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true,
         },
-        birthdate: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
-        user_id: {
+        parent_id: {
             type: DataTypes.BIGINT,
             allowNull: false,
             references: {
-                model: "users",
+                model: "parents",
                 key: "id",
             },
         },
+        student_id: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            references: {
+                model: "students",
+                key: "id",
+            },
+        },
+
     },
     {
         sequelize,
-        modelName: "students",
+        modelName: "parents_students",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",
     }
 );
-
-// Students.belongsTo("Users", {
-//     foreignKey: "user_id",
-//     as: "user",
-// });

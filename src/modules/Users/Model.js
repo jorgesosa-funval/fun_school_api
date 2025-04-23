@@ -80,4 +80,4 @@ Users.init(
 );
 
 // Associations 
-Users.belongsTo('Roles', { foreignKey: "role_id", as: "role" });
+// Users.belongsTo('Roles', { foreignKey: "role_id", as: "role" });

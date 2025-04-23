@@ -48,8 +48,8 @@ Parents.init(
     }
 );
  
-Parents.belongsTo(Users, {
-    foreignKey: "user_id",
-    as: "user",
-});
+// Parents.belongsTo("Users", {
+//     foreignKey: "user_id",
+//     as: "user",
+// });
 
