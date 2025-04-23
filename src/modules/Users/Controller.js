@@ -11,7 +11,8 @@ export const index = async (req, res, next) => {
   try {
     const users = await Users.findAll({
       where: { status: true },
-      attributes: { exclude: ["password"] }
+      attributes: { exclude: [ "password" ] },
+      include:['role'],
     });
     res.status(200).json(users);
   } catch (error) {
@@ -49,8 +50,9 @@ export const show = async (req, res, next) => {
  */
 export const store = async (req, res, next) => {
   try {
-    const requeredFields = ["name", "lastname", "email", "password"];
-    const missingFields = requeredFields.filter((field) => !req.body[field]);
+    const requeredFields = [ "firstname", "lastname", "email", "password", "phone", "role_id" ];
+
+    const missingFields = requeredFields.filter((field) => !req.body[ field ]);
 
     if (missingFields.length > 0) {
       throw { status: 400, message: `Missing fields: ${missingFields.join(", ")}` };
@@ -153,7 +155,7 @@ export const profile = async (req, res, next) => {
     if (!user) {
       throw { status: 404, message: "Users not found" };
     }
-    
+
     res.status(200).json(user);
 
   } catch (error) {

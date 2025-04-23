@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
-
+import { Roles } from "../Roles/Model.js";
 export class Users extends Model { }
 
 Users.init(
@@ -36,10 +36,7 @@ Users.init(
         },
         phone: {
             type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                isNumeric: true,
-            },
+            allowNull: true, 
         },
         password: {
             type: DataTypes.STRING,
@@ -80,4 +77,4 @@ Users.init(
 );
 
 // Associations 
-// Users.belongsTo('Roles', { foreignKey: "role_id", as: "role" });
+Users.belongsTo(Roles, { foreignKey: "role_id", as: "role" });
