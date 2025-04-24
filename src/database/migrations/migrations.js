@@ -10,6 +10,6 @@ export const migrations = [
  "Courses",
  "Subjects_Teachers",
  "Parents_Students",
- "Course_Students",
+ "Courses_Students",
  "Courses_Teachers",
 ];

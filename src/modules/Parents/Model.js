@@ -34,7 +34,7 @@ Parents.init(
                 key: "id",
             },
         },
-        address: {
+        job_address: {
             type: DataTypes.STRING,
             allowNull: true,
         },

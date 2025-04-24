@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
 
-export class Course_Students extends Model {}
+export class Courses_Students extends Model {}
 
-Course_Students.init(
+Courses_Students.init(
     {
         id: {
             type: DataTypes.BIGINT,
@@ -29,7 +29,7 @@ Course_Students.init(
     },
     {
         sequelize,
-        modelName: "course_students",
+        modelName: "courses_students",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",

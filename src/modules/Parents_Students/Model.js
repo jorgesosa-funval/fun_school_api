@@ -26,6 +26,10 @@ Parents_Students.init(
                 key: "id",
             },
         },
+        relationship: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+        },
 
     },
     {
