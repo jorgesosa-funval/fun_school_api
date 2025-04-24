@@ -35,3 +35,4 @@ Courses_Teachers.init(
         updatedAt: "updated_at",
     }
 );
+

@@ -1,6 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
-
+import { Users } from "../Users/Model.js"; 
+import { Courses } from "../Courses/Model.js";
+import { Subjects } from "../Subjects/Model.js";
+import {Subjects_Teachers} from "../Subjects_Teachers/Model.js";
+import { Courses_Teachers } from "../Courses_Teachers/Model.js";
 export class Teachers extends Model { }
 
 Teachers.init(
@@ -37,4 +41,18 @@ Teachers.init(
 );
 
 //association
-// Teachers.belongsTo('Users', { foreignKey: 'user_id', as: 'user' });
+Teachers.belongsTo(Users, { foreignKey: 'user_id', as: 'user'}); 
+
+Teachers.belongsToMany(Courses /* import */, {
+    through: Courses_Teachers /* import */,
+    foreignKey: 'teacher_id',
+    otherKey: 'course_id',
+    as: 'courses',
+});
+
+Teachers.belongsToMany(Subjects /* import */, {
+    through: Subjects_Teachers /* import */,
+    foreignKey: 'teacher_id',
+    otherKey: 'subject_id',
+    as: 'subjects',
+});
