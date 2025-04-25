@@ -1,7 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
+import { Users } from "../Users/Model.js";
+import { Courses } from "../Courses/Model.js"; 
+import { Parents } from "../Parents/Model.js"; 
 
-export class Students extends Model {}
+export class Students extends Model { }
 
 Students.init(
     {
@@ -32,7 +35,21 @@ Students.init(
     }
 );
 
-// Students.belongsTo("Users", {
-//     foreignKey: "user_id",
-//     as: "user",
-// });
+Students.belongsTo(Users, {
+    foreignKey: "user_id",
+    as: "user",
+});
+
+Students.belongsToMany(Courses, {
+    through: "Courses_Students",
+    foreignKey: "student_id",
+    otherKey: "course_id",
+    as: "courses"
+});
+
+Students.belongsToMany(Parents, {
+    through: "Parents_Students",
+    foreignKey: "student_id",
+    otherKey: "parent_id",
+    as: "parents"
+});

@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../database/sequelize.js";
-
+import { Users } from "../Users/Model.js";
 export class Parents extends Model { }
 
 Parents.init(
@@ -48,8 +48,8 @@ Parents.init(
     }
 );
  
-// Parents.belongsTo("Users", {
-//     foreignKey: "user_id",
-//     as: "user",
-// });
+Parents.belongsTo(Users, {
+    foreignKey: "user_id",
+    as: "user",
+});
 
