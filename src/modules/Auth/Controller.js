@@ -31,16 +31,16 @@ async function login(req, res, next) {
       sameSite: "strict",
     });
 
-    res.status(200).json({ 
+    res.status(200).json({
       status: "ok",
       message: "Login successful",
-      token, 
+      token,
     });
 
   } catch (error) {
     next(error);
   }
-} 
+}
 
 async function changePassword(req, res, next) {
 
@@ -57,8 +57,9 @@ async function changePassword(req, res, next) {
     if (!validPassword) {
       throw { message: "Invalid email or password", status: 401 };
     }
+    const password = await hash(newPassword, 10);
 
-    await user.update({ password: newPassword });
+    await user.update({ password: password });
 
     res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
