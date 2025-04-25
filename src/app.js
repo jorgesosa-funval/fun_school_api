@@ -8,7 +8,7 @@ import { ErrorHandler, LogError } from "#middlewares/errorMiddleware.js";
 
 const app = express();
 
-// Application middlewares
+// Application middlewares 
 app.use(cors(appConfig.corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

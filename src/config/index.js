@@ -14,8 +14,9 @@ export default {
   },
   jwtSecret: process.env.JWT_SECRET || "your_jwt_secret",
   corsOptions: {
-    origin: process.env.CORS_ORIGIN || "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: process.env.CORS_ORIGIN || "*", // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // allow session cookie from browser to pass through
+    allowedHeaders: ['Content-Type', 'Authorization']
   },
-};
+}; 
