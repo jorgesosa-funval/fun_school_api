@@ -13,7 +13,11 @@ async function login(req, res, next) {
       return res.status(400).json({ message: "Email and password are required" });
     }
 
-    const user = await Users.findOne({ where: { email } });
+    const user = await Users.findOne({ 
+      where: { email },
+      include: ['role']
+    });
+     
     if (!user || user.status !== "active") {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -22,8 +26,8 @@ async function login(req, res, next) {
     if (!validPassword) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-
-    const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "24h" });
+    const payload = { id: user.id, role: user.role.name } 
+    const token = jwt.sign( payload, jwtSecret, { expiresIn: "24h" });
 
     res.cookie("token", token, {
       httpOnly: true,
