@@ -7,5 +7,5 @@ export const authRouter = Router();
 authRouter.post("/login", login);
 authRouter.put("/change-password", authMiddleware, changePassword);
 authRouter.post("/register", register);
-authRouter.get("/logout", logout);
+authRouter.post("/logout", logout);
 
