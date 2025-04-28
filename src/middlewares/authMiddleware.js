@@ -14,7 +14,7 @@ export function authMiddleware(req, res, next) {
 
     if (!token) {
       return res
-        .status(401)
+        .status(403)
         .json({ message: "Access denied. No token provided." });
     }
 
@@ -26,9 +26,9 @@ export function authMiddleware(req, res, next) {
 
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token has expired." });
+      return res.status(403).json({ message: "Token has expired." });
     }
-    res.status(400).json({ message: "Invalid token." });
+    res.status(403).json({ message: "Invalid token." });
   }
 }
 
