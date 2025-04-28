@@ -12,7 +12,7 @@ export const index = async (req, res, next) => {
     const users = await Users.findAll({
       where: { status: true },
       attributes: { exclude: [ "password" ] },
-      include:['role'],
+      include: [ 'role' ],
     });
     res.status(200).json(users);
   } catch (error) {
@@ -29,7 +29,10 @@ export const index = async (req, res, next) => {
  */
 export const show = async (req, res, next) => {
   try {
-    const user = await Users.findByPk(req.params.id);
+    const user = await Users.findByPk(req.params.id, {
+      attributes: { exclude: [ 'passaword' ] },
+      include: [ 'role' ]
+    });
 
     if (!user) {
       throw { status: 404, message: "User not found" };
@@ -151,7 +154,10 @@ export const restore = async (req, res, next) => {
  */
 export const profile = async (req, res, next) => {
   try {
-    const user = await Users.findByPk(req.user.id);
+    const user = await Users.findByPk(req.auth.id, {
+      attributes: { exclude: [ "password" ] },
+      include: [ 'role' ],
+    });
     if (!user) {
       throw { status: 404, message: "Users not found" };
     }
