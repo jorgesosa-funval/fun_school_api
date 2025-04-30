@@ -9,6 +9,7 @@ import { Users } from "./Model.js"
  */
 export const index = async (req, res, next) => {
   try {
+     validateAdminRole(req, res)
     const users = await Users.findAll({
       where: { status: true },
       attributes: { exclude: [ "password" ] },
@@ -53,6 +54,7 @@ export const show = async (req, res, next) => {
  */
 export const store = async (req, res, next) => {
   try {
+    validateAdminRole(req, res)
     const requeredFields = [ "firstname", "lastname", "email", "password", "phone", "role_id" ];
 
     const missingFields = requeredFields.filter((field) => !req.body[ field ]);
@@ -97,7 +99,7 @@ export const update = async (req, res, next) => {
       throw { status: 404, message: "Users not found" };
     }
     await users.update(req.body);
-    users.save()
+    await users.save()
     res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -113,6 +115,7 @@ export const update = async (req, res, next) => {
  */
 export const destroy = async (req, res, next) => {
   try {
+    validateAdminRole(req, res);
     const user = await Users.findByPk(req.params.id);
     if (!user) {
       throw { status: 404, message: "Users not found" };
@@ -167,6 +170,12 @@ export const profile = async (req, res, next) => {
 
   } catch (error) {
     next(error);
+  }
+}
+
+function validateAdminRole(req, res){
+  if (req.auth.role !== 'Administrador') {
+    res.status(401).json("No tienes permisos para visualizar este contenido")
   }
 }
 

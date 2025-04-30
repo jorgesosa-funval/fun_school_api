@@ -19,12 +19,12 @@ async function login(req, res, next) {
     });
      
     if (!user || user.status !== "active") {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(403).json({ message: "Invalid credentials" });
     }
 
     const validPassword = await compare(password, user.password);
     if (!validPassword) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(403).json({ message: "Invalid credentials" });
     }
     const payload = { id: user.id, role: user.role.name } 
     const token = jwt.sign( payload, jwtSecret, { expiresIn: "24h" });
