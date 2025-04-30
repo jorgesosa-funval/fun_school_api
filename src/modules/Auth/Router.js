@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { changePassword, login, register, logout } from "./Controller.js";
-
+import {authMiddleware} from "#middlewares/authMiddleware.js";
 export const authRouter = Router();
 
 authRouter.post("/login", login);
