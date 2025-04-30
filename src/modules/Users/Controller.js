@@ -96,7 +96,8 @@ export const update = async (req, res, next) => {
     if (!users) {
       throw { status: 404, message: "Users not found" };
     }
-    await Users.update(req.body);
+    await users.update(req.body);
+    users.save()
     res.status(200).json(users);
   } catch (error) {
     next(error);
